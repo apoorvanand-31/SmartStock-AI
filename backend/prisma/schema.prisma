@@ -12,6 +12,11 @@ enum Role {
   MANAGER
 }
 
+enum TransactionType {
+  STOCK_IN
+  STOCK_OUT
+}
+
 model User {
   id        Int      @id @default(autoincrement())
   name      String
@@ -19,4 +24,57 @@ model User {
   password  String
   role      Role     @default(MANAGER)
   createdAt DateTime @default(now())
+
+  products  Product[]
+}
+
+model Category {
+  id          Int       @id @default(autoincrement())
+  name        String    @unique
+  description String?
+
+  products    Product[]
+}
+
+model Supplier {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String?  @unique
+  phone     String?
+  address   String?
+
+  products  Product[]
+}
+
+model Product {
+  id            Int       @id @default(autoincrement())
+  name          String
+  sku           String    @unique
+  barcode       String?   @unique
+  quantity      Int       @default(0)
+  price         Float
+  reorderLevel  Int       @default(10)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  categoryId    Int
+  supplierId    Int
+  createdById   Int
+
+  category       Category   @relation(fields: [categoryId], references: [id])
+  supplier       Supplier   @relation(fields: [supplierId], references: [id])
+  createdBy      User       @relation(fields: [createdById], references: [id])
+
+  transactions   InventoryTransaction[]
+}
+
+model InventoryTransaction {
+  id          Int              @id @default(autoincrement())
+  quantity    Int
+  type        TransactionType
+  createdAt   DateTime         @default(now())
+
+  productId   Int
+
+  product     Product          @relation(fields: [productId], references: [id])
 }

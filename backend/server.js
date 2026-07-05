@@ -2,6 +2,7 @@ const express =require("express");
 const dotenv=require("dotenv");
 const cors=require("cors");
 
+
 dotenv.config();
 
 const app=express();
@@ -10,7 +11,16 @@ app.use(cors());
 app.use(express.json());
 
 const authRoutes = require("./src/routes/authRoutes");
+const categoryRoutes = require("./src/routes/categoryRoutes");
+const supplierRoutes = require("./src/routes/supplierRoutes");
+const productRoutes = require("./src/routes/productRoutes");
+const inventoryRoutes = require("./src/routes/inventoryRoutes");
+
 app.use("/api/auth", authRoutes);
+app.use("/api/categories", categoryRoutes);
+app.use("/api/suppliers", supplierRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/inventory", inventoryRoutes);
 
 app.get("/",(req,res)=>{
     res.send("SmartStock API Running");
