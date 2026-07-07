@@ -67,6 +67,8 @@ const getSuppliers = async (req, res) => {
   }
 };
 
+
+
 module.exports = {
   createSupplier,
   getSuppliers,
