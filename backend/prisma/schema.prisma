@@ -17,6 +17,13 @@ enum TransactionType {
   STOCK_OUT
 }
 
+enum PurchaseOrderStatus {
+  PENDING
+  APPROVED
+  DELIVERED
+  CANCELLED
+}
+
 model User {
   id        Int      @id @default(autoincrement())
   name      String
@@ -25,56 +32,90 @@ model User {
   role      Role     @default(MANAGER)
   createdAt DateTime @default(now())
 
-  products  Product[]
+  products Product[]
 }
 
 model Category {
-  id          Int       @id @default(autoincrement())
-  name        String    @unique
+  id          Int     @id @default(autoincrement())
+  name        String  @unique
   description String?
 
-  products    Product[]
-}
-
-model Supplier {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String?  @unique
-  phone     String?
-  address   String?
-
-  products  Product[]
+  products Product[]
 }
 
 model Product {
-  id            Int       @id @default(autoincrement())
-  name          String
-  sku           String    @unique
-  barcode       String?   @unique
-  quantity      Int       @default(0)
-  price         Float
-  reorderLevel  Int       @default(10)
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  id           Int      @id @default(autoincrement())
+  name         String
+  sku          String   @unique
+  barcode      String?  @unique
+  quantity     Int      @default(0)
+  price        Float
+  reorderLevel Int      @default(10)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
-  categoryId    Int
-  supplierId    Int
-  createdById   Int
+  categoryId  Int
+  supplierId  Int
+  createdById Int
 
-  category       Category   @relation(fields: [categoryId], references: [id])
-  supplier       Supplier   @relation(fields: [supplierId], references: [id])
-  createdBy      User       @relation(fields: [createdById], references: [id])
+  category  Category @relation(fields: [categoryId], references: [id])
+  supplier  Supplier @relation(fields: [supplierId], references: [id])
+  createdBy User     @relation(fields: [createdById], references: [id])
 
-  transactions   InventoryTransaction[]
+  transactions       InventoryTransaction[]
+  purchaseOrderItems PurchaseOrderItem[]
 }
 
 model InventoryTransaction {
-  id          Int              @id @default(autoincrement())
-  quantity    Int
-  type        TransactionType
-  createdAt   DateTime         @default(now())
+  id        Int             @id @default(autoincrement())
+  quantity  Int
+  type      TransactionType
+  createdAt DateTime        @default(now())
 
-  productId   Int
+  productId Int
 
-  product     Product          @relation(fields: [productId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
+}
+
+model PurchaseOrder {
+  id Int @id @default(autoincrement())
+
+  supplierId Int
+  supplier   Supplier @relation(fields: [supplierId], references: [id])
+
+  totalAmount Float
+  status      PurchaseOrderStatus @default(PENDING)
+
+  items PurchaseOrderItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model PurchaseOrderItem {
+  id Int @id @default(autoincrement())
+
+  purchaseOrderId Int
+  productId       Int
+
+  quantity  Int
+  unitPrice Float
+
+  purchaseOrder PurchaseOrder @relation(fields: [purchaseOrderId], references: [id])
+  product       Product       @relation(fields: [productId], references: [id])
+}
+
+model Supplier {
+  id      Int     @id @default(autoincrement())
+  name    String
+  email   String  @unique
+  phone   String
+  address String?
+
+  products Product[]
+
+  purchaseOrders PurchaseOrder[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 }

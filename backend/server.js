@@ -19,6 +19,7 @@ const dashboardRoutes = require("./src/routes/dashboard.routes");
 const reportRoutes = require("./src/routes/report.routes");
 const forecastRoutes=require("./src/routes/forecast.routes");
 const reorderRoutes = require("./src/routes/reorder.routes");
+const purchaseOrderRoutes = require("./src/routes/purchaseOrderRoutes");
 
 
 app.use("/api/auth", authRoutes);
@@ -30,6 +31,8 @@ app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/reports", reportRoutes);
 app.use("/api/forecast", forecastRoutes);
 app.use("/api/reorder", reorderRoutes);
+app.use("/api/purchase-orders", purchaseOrderRoutes);
+
 
 app.get("/",(req,res)=>{
     res.send("SmartStock API Running");
