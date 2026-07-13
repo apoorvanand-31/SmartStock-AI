@@ -2,37 +2,60 @@ import { useEffect, useState } from "react";
 import Layout from "../../components/layout/Layout";
 import DashboardCard from "../../components/cards/DashboardCard";
 import api from "../../services/api";
+import SalesChart from "../../components/charts/SalesChart";
+import LowStockTable from "../../components/tables/LowStockTable";
+import ForecastCard from "../../components/cards/ForecastCard";
+
 
 function Dashboard() {
   const [stats, setStats] = useState(null);
+  const [sales, setSales] = useState([]);
+  const [lowStock, setLowStock] = useState([]);
+  const [forecast, setForecast] = useState(null);
 
   useEffect(() => {
     fetchDashboard();
   }, []);
 
-  const fetchDashboard = async () => {
-    try {
-      const token = localStorage.getItem("token");
+const fetchDashboard = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    const [
+      statsRes,
+      salesRes,
+      lowStockRes,
+      forecastRes,
+    ] = await Promise.all([
+      api.get("/dashboard", { headers }),
+      api.get("/dashboard/sales", { headers }),
+      api.get("/dashboard/low-stock", { headers }),
+      api.get("/dashboard/forecast", { headers }),
+    ]);
+    setStats(statsRes.data.data);
+    setSales(salesRes.data.data);
+    setLowStock(lowStockRes.data.data);
+    setForecast(forecastRes.data.data);
 
-      const response = await api.get("/dashboard", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      setStats(response.data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  } catch (error) {
+    console.log(error);
+  }
+};
 
   if (!stats) {
+
     return (
       <Layout>
         <h2>Loading...</h2>
       </Layout>
     );
   }
+  console.log(stats);
+  console.log(sales);
+  console.log(lowStock);
+  console.log(forecast);
 
   return (
     <Layout>
@@ -53,7 +76,7 @@ function Dashboard() {
 
         <DashboardCard
           title="Inventory Value"
-          value={`₹ ${stats.inventoryValue}`}
+          value={`₹ ${stats.inventoryValue.toLocaleString("en-IN")}`}
           color="border-purple-500"
         />
 
@@ -62,8 +85,12 @@ function Dashboard() {
           value={stats.lowStockCount}
           color="border-red-500"
         />
+        
 
       </div>
+      <SalesChart data={sales} />
+      <LowStockTable products={lowStock} />
+      <ForecastCard forecast={forecast} />
 
     </Layout>
   );
