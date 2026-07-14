@@ -1,10 +1,17 @@
 # 📦 SmartStock AI
 
-> AI-Powered Inventory Management & Demand Forecasting System
+![React](https://img.shields.io/badge/React-19-blue?logo=react)
+![Node.js](https://img.shields.io/badge/Node.js-Express-green?logo=node.js)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue?logo=postgresql)
+![Prisma](https://img.shields.io/badge/Prisma-ORM-2D3748?logo=prisma)
+![JWT](https://img.shields.io/badge/Auth-JWT-orange)
+![License](https://img.shields.io/badge/License-MIT-yellow)
 
-SmartStock AI is a full-stack web application designed to help small and medium-sized businesses efficiently manage inventory, monitor sales, and forecast future product demand using Machine Learning.
 
-The application provides real-time inventory tracking, low-stock alerts, sales analytics, and intelligent reorder recommendations, enabling businesses to make data-driven inventory decisions.
+
+# 📦 SmartStock AI - Inventory & Demand Forecast Assistant
+
+A full-stack Inventory Management System built using **React.js, Node.js, Express.js, Prisma ORM, and PostgreSQL**. The application helps businesses efficiently manage inventory, suppliers, categories, purchase orders, and inventory transactions while providing dashboard analytics, sales reports, and AI-inspired demand forecasting.
 
 ---
 
@@ -12,93 +19,66 @@ The application provides real-time inventory tracking, low-stock alerts, sales a
 
 ### 🔐 Authentication
 - User Registration
-- Secure Login
+- User Login
 - JWT Authentication
-- Password Hashing using bcrypt
+- Protected Routes
+- Secure Password Hashing (bcrypt)
 
-### 📦 Product Management
-- Add New Products
-- Update Product Details
-- Delete Products
-- Search & Filter Products
+### 📦 Inventory Management
+- Product Management (CRUD)
 - Category Management
+- Supplier Management
+- Inventory Transactions
+- Low Stock Monitoring
 
-### 📊 Inventory Management
-- Real-time Stock Tracking
-- Automatic Stock Updates
-- Low Stock Alerts
-- Reorder Level Monitoring
-
-### 💰 Sales Management
-- Record Sales
-- Sales History
-- Automatic Inventory Deduction
-- Revenue Tracking
-
-### 🤖 AI Demand Forecasting
-- Predict Future Product Demand
-- Intelligent Reorder Recommendations
-- Sales Trend Analysis
-
-### 📈 Dashboard
-- Inventory Overview
+### 📊 Dashboard
 - Total Products
-- Revenue Summary
-- Low Stock Products
+- Total Inventory
+- Inventory Value
+- Low Stock Count
 - Sales Analytics
-- Demand Prediction Charts
+- Demand Forecast Summary
+
+### 📈 Reports
+- Sales Report
+- Top Selling Products
+- Export Sales Report as CSV
+- Export Sales Report as Excel
+
+### 🤖 Demand Forecast
+- Forecast based on historical sales
+- Average Daily Sales
+- Expected Demand
+- Predicted Sales for Next 7 Days
+- Days Until Out of Stock
+- Reorder Recommendation
 
 ---
 
-# 🏗️ System Architecture
+# 🛠 Tech Stack
 
-```
-                   React.js Frontend
-                           │
-                     REST API (Axios)
-                           │
-                  Node.js + Express.js
-                 ┌──────────┴──────────┐
-                 │                     │
-             MySQL Database      Python FastAPI
-                                      │
-                             Machine Learning Model
-```
-
----
-
-# 🛠️ Tech Stack
-
-### Frontend
+## Frontend
 - React.js
-- Tailwind CSS
-- React Router
+- React Router DOM
 - Axios
-- Chart.js
+- React Hook Form
+- Tailwind CSS
 
-### Backend
+## Backend
 - Node.js
 - Express.js
-- JWT Authentication
-- bcrypt
 
-### Database
-- MySQL
+## Database
+- PostgreSQL
+- Prisma ORM
 
-### Machine Learning
-- Python
-- FastAPI
-- Scikit-learn
-- Pandas
-- NumPy
+## Authentication
+- JWT
+- bcryptjs
 
-### Version Control
-- Git
-- GitHub
-
-### Deployment
-- Vercel
-- Render
+## Reports
+- ExcelJS
+- json2csv
 
 ---
 
@@ -107,154 +87,215 @@ The application provides real-time inventory tracking, low-stock alerts, sales a
 ```
 SmartStock-AI
 │
-├── frontend/          # React Application
-├── backend/           # Express REST API
-├── ml-service/        # Python ML Service
-├── database/          # SQL Scripts
-├── docs/              # Documentation
+├── backend
+│   ├── controllers
+│   ├── middleware
+│   ├── prisma
+│   ├── routes
+│   ├── services
+│   └── server.js
 │
-├── README.md
-└── .gitignore
+├── frontend
+│   ├── components
+│   ├── pages
+│   ├── routes
+│   ├── services
+│   └── src
+│
+├── screenshots
+│
+└── README.md
 ```
 
 ---
 
-# 📌 Functional Modules
+# ⚙️ Installation
 
-- Authentication
-- Product Management
-- Inventory Management
-- Sales Management
-- Dashboard
-- AI Prediction
+## Clone Repository
 
----
+```bash
+git clone https://github.com/YOUR_USERNAME/SmartStock-AI.git
 
-# 🗄️ Database
-
-The application uses MySQL with the following entities:
-
-- Users
-- Products
-- Sales
-
-Future versions may include:
-
-- Suppliers
-- Purchase Orders
-- Notifications
-- Audit Logs
-
----
-
-# 🔄 Workflow
-
-```
-Login
-
-↓
-
-Dashboard
-
-↓
-
-Manage Products
-
-↓
-
-Record Sales
-
-↓
-
-Update Inventory
-
-↓
-
-Predict Demand
-
-↓
-
-Generate Insights
+cd SmartStock-AI
 ```
 
 ---
 
-# 📡 REST APIs
+## Backend Setup
+
+```bash
+cd backend
+
+npm install
+```
+
+Create a `.env` file
+
+```env
+DATABASE_URL=your_postgresql_database_url
+
+JWT_SECRET=your_secret_key
+
+PORT=5000
+```
+
+Run migrations
+
+```bash
+npx prisma migrate dev
+```
+
+Start Backend
+
+```bash
+npm run dev
+```
+
+---
+
+## Frontend Setup
+
+```bash
+cd frontend
+
+npm install
+
+npm run dev
+```
+
+---
+
+# 📡 API Endpoints
 
 ## Authentication
 
-```
-POST /api/auth/register
-POST /api/auth/login
-```
-
-## Products
-
-```
-GET    /api/products
-GET    /api/products/:id
-POST   /api/products
-PUT    /api/products/:id
-DELETE /api/products/:id
-```
-
-## Sales
-
-```
-POST /api/sales
-GET  /api/sales
-```
-
-## Dashboard
-
-```
-GET /api/dashboard
-```
-
-## AI Prediction
-
-```
-POST /api/predict
-```
+| Method | Endpoint |
+|----------|----------------|
+| POST | /auth/register |
+| POST | /auth/login |
 
 ---
 
-# 🎯 Project Objectives
+## Products
 
-- Reduce stock shortages
-- Prevent overstocking
-- Improve inventory visibility
-- Automate stock management
-- Predict future product demand
-- Help businesses make smarter purchasing decisions
+| Method | Endpoint |
+|----------|----------------|
+| GET | /products |
+| POST | /products |
+| PUT | /products/:id |
+| DELETE | /products/:id |
+
+---
+
+## Categories
+
+| Method | Endpoint |
+|----------|----------------|
+| GET | /categories |
+| POST | /categories |
+
+---
+
+## Suppliers
+
+| Method | Endpoint |
+|----------|----------------|
+| GET | /suppliers |
+| POST | /suppliers |
+| PUT | /suppliers/:id |
+| DELETE | /suppliers/:id |
+
+---
+
+## Reports
+
+| Method | Endpoint |
+|----------|----------------|
+| GET | /reports/sales |
+| GET | /reports/top-products |
+| GET | /reports/export/csv |
+| GET | /reports/export/excel |
+
+---
+
+## Forecast
+
+| Method | Endpoint |
+|----------|----------------|
+| GET | /forecast/:productId |
 
 ---
 
 # 📸 Screenshots
 
-> Screenshots will be added after implementation.
+### Login
 
-- Login Page
-- Dashboard
-- Product Management
-- Sales Module
-- AI Prediction
-- Analytics Dashboard
+![Dashboard](screenshots/login.png)
 
 ---
 
-# 🚀 Future Enhancements
+### Dashboard
 
+![Dashboard](screenshots/dashboard.png)
+
+---
+
+### Products
+
+![Dashboard](screenshots/product.png)
+
+---
+
+### Categories
+
+![Dashboard](screenshots/categories.png)
+
+---
+
+### Suppliers
+
+![Dashboard](screenshots/suppliers.png)
+
+---
+
+### Reports
+
+![Dashboard](screenshots/reports.png)
+
+---
+
+### Forecast
+
+![Dashboard](screenshots/demandforecast.png)
+
+---
+
+# 🔮 Future Enhancements
+
+- Role-Based Access Control (RBAC)
+- Multi-Warehouse Management
 - Barcode Scanner Integration
-- QR Code Support
-- Supplier Management
-- Purchase Order Automation
-- Email & WhatsApp Alerts
-- Multi-User Role Management
+- Email Notifications
+- Real-time Inventory Updates
+- Machine Learning Based Forecasting
+- Docker Support
 - Cloud Deployment
-- Mobile Application
-- AI Chat Assistant
-- Demand Forecasting using LSTM
+- Analytics Dashboard with Charts
+
+---
+
+# 💡 Key Learning Outcomes
+
+- REST API Development
+- JWT Authentication
+- Prisma ORM
+- PostgreSQL Database Design
+- React Component Architecture
+- State Management
+- CRUD Operations
+- Demand Forecasting Logic
+- CSV & Excel Report Generation
+- Full Stack Application Development
 
 ---
 
@@ -262,14 +303,8 @@ POST /api/predict
 
 **Apoorv Anand**
 
-B.Tech (Artificial Intelligence & Machine Learning)
+GitHub: https://github.com/apoorvanand-31
 
 ---
 
-# 📄 License
-
-This project is developed for educational and learning purposes.
-
----
-
-⭐ If you like this project, consider giving it a star.
+## ⭐ If you found this project useful, consider giving it a star!
