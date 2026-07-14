@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function Sidebar() {
   const navigate = useNavigate();
@@ -18,30 +18,85 @@ function Sidebar() {
       </div>
 
       <nav className="flex flex-col p-4 gap-2 flex-1">
+      <NavLink
+        to="/dashboard"
+        className={({ isActive }) =>
+          `p-3 rounded transition ${
+            isActive
+              ? "bg-blue-600 text-white"
+              : "hover:bg-slate-700"
+          }`
+        }
+      >
+        Dashboard
+      </NavLink>
+            <NavLink
+        to="/products"
+        className={({ isActive }) =>
+          `p-3 rounded transition ${
+            isActive
+              ? "bg-blue-600 text-white"
+              : "hover:bg-slate-700"
+          }`
+        }
+      >
+        Products
+      </NavLink>
+      <NavLink
+        to="/categories"
+        className={({ isActive }) =>
+          `p-3 rounded transition ${
+            isActive
+              ? "bg-blue-600 text-white"
+              : "hover:bg-slate-700"
+          }`
+        }
+      >
+        Categories
+      </NavLink>
 
-        <Link to="/dashboard" className="p-3 rounded hover:bg-slate-700">
-          Dashboard
-        </Link>
+      <NavLink
+        to="/suppliers"
+        className={({ isActive }) =>
+          `p-3 rounded transition ${
+            isActive
+              ? "bg-blue-600 text-white"
+              : "hover:bg-slate-700"
+          }`
+        }
+      >
+        Suppliers
+      </NavLink>
 
-        <Link to="/products" className="p-3 rounded hover:bg-slate-700">
-          Products
-        </Link>
+      <NavLink
+        to="/reports"
+        className={({ isActive }) =>
+          `p-3 rounded transition ${
+            isActive
+              ? "bg-blue-600 text-white"
+              : "hover:bg-slate-700"
+          }`
+        }
+      >
+        Reports
+      </NavLink>
+      <NavLink
+  to="/forecast"
+  className={({ isActive }) =>
+    `p-3 rounded transition ${
+      isActive
+        ? "bg-blue-600 text-white"
+        : "hover:bg-slate-700"
+    }`
+  }
+>
+  Forecast
+</NavLink>
 
-        <Link to="/categories" className="p-3 rounded hover:bg-slate-700">
-          Categories
-        </Link>
 
-        <Link to="/suppliers" className="p-3 rounded hover:bg-slate-700">
-          Suppliers
-        </Link>
+        
 
-        <Link to="/reports" className="p-3 rounded hover:bg-slate-700">
-          Reports
-        </Link>
 
-        <Link to="/forecast" className="p-3 rounded hover:bg-slate-700">
-          Forecast
-        </Link>
 
       </nav>
 

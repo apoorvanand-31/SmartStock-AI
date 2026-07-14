@@ -7,6 +7,8 @@ import Products from "../pages/Products/Products";
 import Categories from "../pages/Categories/Categories";
 import Suppliers from "../pages/Suppliers/Suppliers";
 import Reports from "../pages/Reports/Reports";
+import ProtectedRoute from "../components/auth/ProtectedRoute";
+import Forecast from "../pages/Forecast/Forecast";
 
 function AppRoutes() {
   return (
@@ -15,20 +17,56 @@ function AppRoutes() {
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/products" element={<Products />} />
         <Route
-  path="/categories"
-  element={<Categories />}
-/>
-<Route
-  path="/suppliers"
-  element={<Suppliers />}
-/>
-<Route
-  path="/reports"
-  element={<Reports />}
-/>
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/products"
+          element={
+            <ProtectedRoute>
+              <Products />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/categories"
+          element={
+            <ProtectedRoute>
+              <Categories />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/suppliers"
+          element={
+            <ProtectedRoute>
+              <Suppliers />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/reports"
+          element={
+            <ProtectedRoute>
+              <Reports />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/forecast"
+          element={
+            <ProtectedRoute>
+              <Forecast />
+            </ProtectedRoute>
+          }
+        />
+
         
       </Routes>
     </BrowserRouter>

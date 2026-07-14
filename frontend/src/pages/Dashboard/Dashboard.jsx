@@ -47,9 +47,9 @@ const fetchDashboard = async () => {
   if (!stats) {
 
     return (
-      <Layout>
-        <h2>Loading...</h2>
-      </Layout>
+    <div className="flex justify-center items-center h-96">
+      <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-blue-600"></div>
+    </div>
     );
   }
   console.log(stats);

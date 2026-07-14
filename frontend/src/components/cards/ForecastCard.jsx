@@ -1,6 +1,6 @@
 function ForecastCard({ forecast }) {
   return (
-    <div className="bg-white rounded-xl shadow p-6 mt-8">
+    <div className="bg-white rounded-xl shadow p-6 transition duration-300 hover:shadow-xl hover:-translate-y-1">
       <h2 className="text-xl font-semibold mb-4">
         Demand Forecast
       </h2>

@@ -6,9 +6,15 @@ function LowStockTable({ products }) {
       </h2>
 
       {products.length === 0 ? (
-        <p className="text-gray-500">
-          🎉 No low stock products.
-        </p>
+        <div className="text-center py-10">
+          <h3 className="text-xl font-semibold text-green-600">
+            🎉 Great! No low stock products.
+          </h3>
+
+          <p className="text-gray-500 mt-2">
+            All inventory levels are above their reorder thresholds.
+          </p>
+        </div>
       ) : (
         <table className="w-full border-collapse">
           <thead>

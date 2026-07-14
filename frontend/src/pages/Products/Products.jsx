@@ -96,6 +96,7 @@ const handleDelete = async (id) => {
           </thead>
 
           <tbody>
+            
 
             {products.map((product) => (
 
